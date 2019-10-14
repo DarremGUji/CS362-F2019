@@ -1213,7 +1213,7 @@ int minionCard(int card, int choice1, int choice2, struct gameState *state, int 
         }
 
         //draw 4 To do bug: change i<4 to i<=4
-        for (i = 0; i < 4; i++)
+        for (i = 0; i <= 4; i++)
         {
             drawCard(currentPlayer, state);
         }
