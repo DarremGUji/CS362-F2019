@@ -1,15 +1,5 @@
-/*
- * unittest1.c
- *
 
- */
 
-/*
- * Include the following lines in your makefile:
- *
- * unittest1: unittest1.c dominion.o rngs.o
- *      gcc -o unittest1 -g  unittest1.c dominion.o rngs.o $(CFLAGS)
- */
  
 #include "dominion.h"
 #include "dominion_helpers.h"
@@ -95,3 +85,5 @@ int main(){
 	return 0;
  
  }
+  
+  
