@@ -6,9 +6,10 @@
 char inputChar()
 {
     
-    char randC = (rand() % (126-32))+32;
-    return randC;
+    char c = (rand() % 126-32);
+    return c;
 }
+
 
 char *inputString()
 {
@@ -16,11 +17,14 @@ char *inputString()
     int len = 6;
     char *randS = malloc(len);
     
-    for(i = 0; i < len-1; i++){
-      randS[i] = (rand() % (122-97))+97; 
+    while(i<5){
+      randS[i] = (rand() % (122-97));
+      i++; 
+      
     }
+    
     // Add '\0' to end of randS
-    randS[len-1] = '\0';
+    randS[5] = '\0';
 
     return randS;
 }
