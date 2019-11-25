@@ -1,4 +1,4 @@
-CFLAGS= -Wall -fpic -coverage -lm -std=c99
+CFLAGS= -w -fpic -coverage -lm -std=c99
 
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
@@ -9,81 +9,12 @@ dominion.o: dominion.h dominion.c rngs.o
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
 #To run playdom you need to entere: ./playdom <any integer number> like ./playdom 10*/
+
 testDrawCard: testDrawCard.c dominion.o rngs.o
 	gcc  -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
 
-badTestDrawCard: badTestDrawCard.c dominion.o rngs.o
-	gcc -o badTestDrawCard -g  badTestDrawCard.c dominion.o rngs.o $(CFLAGS)
-
-testBuyCard: testDrawCard.c dominion.o rngs.o
-	gcc -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
-
-testAll: dominion.o testSuite.c
-	gcc -o testSuite testSuite.c -g  dominion.o rngs.o $(CFLAGS)
-
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
-
-
-unittestresults: dominion.o rngs.o
-	echo "Result for running dominion unit tests:" > unittestresults.out
-	echo "unittest1.c:" >> unittestresults.out
-	gcc -o unittest1 unittest1.c dominion.o rngs.o $(CFLAGS)
-	./unittest1 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "unittest2.c:" >> unittestresults.out
-	gcc -o unittest2 unittest2.c dominion.o rngs.o $(CFLAGS)
-	./unittest2 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "unittest3.c:" >> unittestresults.out
-	gcc -o unittest3 unittest3.c dominion.o rngs.o $(CFLAGS)
-	./unittest3 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "unittest4.c:" >> unittestresults.out
-	gcc -o unittest4 unittest4.c dominion.o rngs.o $(CFLAGS)
-	./unittest4 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "unittest5.c:" >> unittestresults.out
-	gcc -o unittest5 unittest5.c dominion.o rngs.o $(CFLAGS)
-	./unittest5 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "cardtest1.c:" >> unittestresults.out
-	gcc -o cardtest1 cardtest1.c dominion.o rngs.o $(CFLAGS)
-	./cardtest1 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "cardtest2.c:" >> unittestresults.out
-	gcc -o cardtest2 cardtest2.c dominion.o rngs.o $(CFLAGS)
-	./cardtest2 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "cardtest3.c:" >> unittestresults.out
-	gcc -o cardtest3 cardtest3.c dominion.o rngs.o $(CFLAGS)
-	./cardtest3 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "cardtest4.c:" >> unittestresults.out
-	gcc -o cardtest4 cardtest4.c dominion.o rngs.o $(CFLAGS)
-	./cardtest4 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-	echo "cardtest5.c:" >> unittestresults.out
-	gcc -o cardtest5 cardtest5.c dominion.o rngs.o $(CFLAGS)
-	./cardtest5 >> unittestresults.out
-	gcov dominion.c -b >> unittestresults.out
-
-
-randomtestcard1: randomtestcard1.c dominion.o rngs.o
-	gcc -o randomtestcard1 -g  randomtestcard1.c dominion.o rngs.o $(CFLAGS)
-
-randomtestcard2: randomtestcard2.c dominion.o rngs.o
-	gcc -o randomtestcard2 -g  randomtestcard2.c dominion.o rngs.o $(CFLAGS)
-
-randomtestcard3: randomtestcard3.c dominion.o rngs.o
-	gcc -o randomtestcard3 -g  randomtestcard3.c dominion.o rngs.o $(CFLAGS)
-
-randomtestresults: randomtestcard1 randomtestcard2 randomtestcard3 dominion.o rngs.o
-	./randomtestcard1 >> randomtestresults.out
-	./randomtestcard2 >> randomtestresults.out
-	./randomtestcard3 >> randomtestresults.out
-	gcov dominion.c -b -f >> randomtestresults.out
-
 
 runtests: testDrawCard 
 	./testDrawCard &> unittestresult.out
@@ -96,5 +27,82 @@ player: player.c interface.o
 
 all: playdom player 
 
+testUpdateCoins: testUpdateCoins.c dominion.o rngs.o
+	gcc -o testUpdateCoins -g  testUpdateCoins.c dominion.o rngs.o $(CFLAGS)
+
+cardtest4: cardtest4.c dominion.o rngs.o testFunc.o
+	gcc -o cardtest1 -g  cardtest4.c dominion.o rngs.o $(CFLAGS)
+	
+unittest1: unittest1.c dominion.o rngs.o testFunc.o
+	gcc -o unittest1 -g unittest1.c dominion.o rngs.o testFunc.o $(CFLAGS)
+	
+unittest2: unittest2.c dominion.o rngs.o testFunc.o
+	gcc -o unittest2 -g unittest2.c dominion.o rngs.o testFunc.o $(CFLAGS)
+	
+unittest3: unittest3.c dominion.o rngs.o testFunc.o
+	gcc -o unittest3 -g unittest3.c dominion.o rngs.o testFunc.o $(CFLAGS)
+	
+unittest4: unittest4.c dominion.o rngs.o testFunc.o
+	gcc -o unittest4 -g unittest4.c dominion.o rngs.o testFunc.o $(CFLAGS)
+	
+unittest5: unittest5.c dominion.o rngs.o testFunc.o
+	gcc -o unittest5 -g unittest5.c dominion.o rngs.o testFunc.o $(CFLAGS)
+	
+unittestresults: unittest1 unittest2 unittest3 unittest4 unittest5
+	echo "***** UNIT TEST RESULTS *****" > unittestresults.out
+	./unittest1 >> unittestresults.out
+	./unittest2 >> unittestresults.out
+	./unittest3 >> unittestresults.out
+	./unittest4 >> unittestresults.out
+	./unittest5 >> unittestresults.out
+	echo "***** GCOV BRANCH/FUNCTION COVERAGE RESULTS *****" >> unittestresults.out
+	gcov -b -f dominion.c >> unittestresults.out
+	echo "***** dominion.c.gcov CONTENTS *****" >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
+
+testFunc.o:
+	gcc -c testFunc.c
+
+randomtestcard1: randomtestcard1.c dominion.o rngs.o testFunc.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o testFunc.o $(CFLAGS)
+	
+randomtestcard2: randomtestcard2.c dominion.o rngs.o testFunc.o
+	gcc -o randomtestcard2 randomtestcard2.c dominion.o rngs.o testFunc.o $(CFLAGS)
+	
+randomtestcard3: randomtestcard3.c dominion.o rngs.o testFunc.o
+	gcc -o randomtestcard3 randomtestcard3.c dominion.o rngs.o testFunc.o $(CFLAGS)
+
+randomtestresults: randomtestcard1 randomtestcard2 randomtestcard3
+	echo "***** RANDOM TEST RESULTS *****" > randomtestresults.out
+	./randomtestcard1 >> randomtestresults.out
+	echo "***** BARON TEST CONCLUDED *****" >> randomtestresults.out
+	./randomtestcard2 >> randomtestresults.out 
+	echo "***** MINION TEST CONCLUDED *****" >> randomtestresults.out
+	./randomtestcard3 >> randomtestresults.out
+	echo "***** TRIBUTE TEST CONCLUDED *****" >> randomtestresults.out
+	echo "***** GCOV BRANCH/FUNCTION COVERAGE RESULTS *****" >> randomtestresults.out
+	gcov -b -f dominion.c >> randomtestresults.out
+	echo "***** dominion.c.gcov CONTENTS *****" >> randomtestresults.out
+	cat dominion.c.gcov >> randomtestresults.out
+	
+alltests: unittest1 unittest2 unittest3 unittest4 unittest5 randomtestcard1 randomtestcard2 randomtestcard3 dominion.o
+	echo "***** UNIT TEST RESULTS *****" > alltestresults.out
+	./unittest1 >> alltestresults.out
+	./unittest2 >> alltestresults.out
+	./unittest3 >> alltestresults.out
+	./unittest4 >> alltestresults.out
+	./unittest5 >> alltestresults.out
+	echo "***** RANDOM TEST RESULTS *****" >> alltestresults.out
+	./randomtestcard1 >> alltestresults.out
+	echo "***** BARON TEST CONCLUDED *****" >> alltestresults.out
+	./randomtestcard2 >> alltestresults.out 
+	echo "***** MINION TEST CONCLUDED *****" >> alltestresults.out
+	./randomtestcard3 >> alltestresults.out
+	echo "***** TRIBUTE TEST CONCLUDED *****" >> alltestresults.out
+	echo "***** GCOV BRANCH/FUNCTION COVERAGE RESULTS *****" >> alltestresults.out
+	gcov -b -f dominion.c >> alltestresults.out
+	echo "***** dominion.c.gcov CONTENTS *****" >> alltestresults.out
+	cat dominion.c.gcov >> alltestresults.out
+	
 clean:
 	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
